@@ -23,8 +23,8 @@ def get_tmdb_movie_data(movie_name):
     if tmdb_search_result['total_results'] == 0:
         return None
     tmdb_id = tmdb_search_result['results'][0]['id']
-    url = "https://api.themoviedb.org/3/movie/{0}?api_key={1}&append_to_response=videos".format(tmdb_id, TMDB_API_KEY)
-    resp = requests.get(url)
+    movie_url = "https://api.themoviedb.org/3/movie/{0}?api_key={1}&append_to_response=videos".format(tmdb_id, TMDB_API_KEY)
+    resp = requests.get(movie_url)
     return resp.json()
 
 def get_runtime_from_tmdb_movie_data(tmdb_movie_data):
@@ -43,7 +43,6 @@ def get_posterurl_from_tmdb_movie_data(tmdb_movie_data):
             return ''
         return "https://image.tmdb.org/t/p/{0}/{1}.jpg".format(size, key)
 
-    key = ''
     poster_partial_url = tmdb_movie_data.get('poster_path', '')
     poster_key = key_from_partial_url(poster_partial_url)
 
